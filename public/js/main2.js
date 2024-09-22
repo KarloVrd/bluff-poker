@@ -3,7 +3,7 @@ const spil = {
     ]
 }
 
-function stvoriSpil() {
+function createDeck() {
     let vrijednost = ["2","3","4","5","6","7","8","9","10","decko","dama","kralj","as"]
     let boja = ["herc","karo","pik","tref"]
     for (let index = 0; index < vrijednost.length; index++) {
@@ -15,7 +15,7 @@ function stvoriSpil() {
     }   
 }
 
-stvoriSpil()
+createDeck()
 
 const shiftCard = (name) => {
     const button = document.getElementById(name)

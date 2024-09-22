@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Hand Section */
+  .hand {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .hand__title {
+    font-weight: bold;
+  }
+  
+  .hand__cards {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Actions Section */
+  .actions {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .actions__title {
+    font-weight: bold;
+  }
+  
+  .actions__list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .actions__newround, .actions__exit {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Player List Section */
+  .actions__playerList {
+    margin: 10px 0;
+  }
+  
+  .actions__playerList li {
+    margin-bottom: 5px;
+  }

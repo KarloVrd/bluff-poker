@@ -1,0 +1,66 @@
+const url = 'http://localhost:3000';
+
+function enterGame(gameId, userName) {
+    if (userName === '') {
+        alert('Please provide a username');
+        return;
+    }
+    if (gameId === '') {
+        alert('Please provide a game ID');
+        return;
+    }
+    window.location.href = `${url}/game.html?gameId=${gameId}&userName=${userName}`;
+}
+
+function refreshGamesList(games) {
+    const gamesListElement = document.getElementsByClassName('gameSelector__list')[0];
+    gamesListElement.innerHTML = '';
+    games.forEach(game => {
+        const li = document.createElement('li');
+        li.innerHTML = `${game.creatorUserName} (${game.numberOfPlayers} players)`;
+        li.style.cursor = 'pointer';
+        li.style.margin = '10px 0';
+
+        li.addEventListener('click', () => {
+            const userName = document.getElementsByClassName('username__input')[0].value;
+            enterGame(game.gameId, userName);
+        });
+        gamesListElement.appendChild(li);
+    });
+}
+
+function createGame() {
+    console.log('Creating game');
+    const userName = document.getElementsByClassName('username__input')[0].value;
+    if (userName === '') {
+        alert('Please provide a username');
+        return;
+    }
+    // send a request to the server to create a game
+    fetch(`${url}/games`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userName })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // open the game page
+            enterGame(data.gameId, userName);
+        });
+}
+
+function fetchGames() {
+    fetch(`${url}/games`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            refreshGamesList(data);
+        });
+}
+
+document.getElementsByClassName('gameSelector__create')[0].addEventListener('click', createGame);
+document.getElementsByClassName('gameSelector__refresh')[0].addEventListener('click', fetchGames);
+
+fetchGames();
