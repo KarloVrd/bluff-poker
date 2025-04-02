@@ -1,5 +1,10 @@
-const url = 'http://localhost:3000';
+const port = 3000;
+const host = location.hostname;
+const url = `http://${host}:${port}`;
 
+const gamesListElement = document.getElementsByClassName('gamesList')[0];
+
+console.log(url);
 function enterGame(gameId, userName) {
     if (userName === '') {
         alert('Please provide a username');
@@ -13,20 +18,23 @@ function enterGame(gameId, userName) {
 }
 
 function refreshGamesList(games) {
-    const gamesListElement = document.getElementsByClassName('gameSelector__list')[0];
     gamesListElement.innerHTML = '';
-    games.forEach(game => {
-        const li = document.createElement('li');
-        li.innerHTML = `${game.creatorUserName} (${game.numberOfPlayers} players)`;
-        li.style.cursor = 'pointer';
-        li.style.margin = '10px 0';
+    if (games.length === 0) {
+        gamesListElement.style.display = 'none'; // Hide the list if empty
+    } else {
+        gamesListElement.style.display = 'flex'; // Show the list if not empty
+        games.forEach(game => {
+            const li = document.createElement('li');
+            li.innerHTML = `${game.creatorUserName} (${game.numberOfPlayers} players)`;
+            li.style.cursor = 'pointer';
 
-        li.addEventListener('click', () => {
-            const userName = document.getElementsByClassName('username__input')[0].value;
-            enterGame(game.gameId, userName);
+            li.addEventListener('click', () => {
+                const userName = document.getElementsByClassName('username__input')[0].value;
+                enterGame(game.gameId, userName);
+            });
+            gamesListElement.appendChild(li);
         });
-        gamesListElement.appendChild(li);
-    });
+    } 
 }
 
 function createGame() {
@@ -60,7 +68,7 @@ function fetchGames() {
         });
 }
 
-document.getElementsByClassName('gameSelector__create')[0].addEventListener('click', createGame);
-document.getElementsByClassName('gameSelector__refresh')[0].addEventListener('click', fetchGames);
+document.getElementsByClassName('create')[0].addEventListener('click', createGame);
+document.getElementsByClassName('refresh')[0].addEventListener('click', fetchGames);
 
 fetchGames();

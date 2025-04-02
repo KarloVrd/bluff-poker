@@ -29,4 +29,19 @@ function serializePlayers(players) {
     return serializedPlayers;
 }
 
-module.exports = { serializeGames, serializePlayers };
+function serializeAllCards(players) {
+  const allCards = [];
+  const keys = Object.keys(players);
+  for (const playerId of keys) {
+    const player = players[playerId];
+    const serializedCards = {
+      userName: player.userName,
+      playerId: playerId,
+      cards: player.currentCards
+    };
+    allCards.push(serializedCards);
+  }
+  return allCards;
+}
+
+module.exports = { serializeGames, serializePlayers, serializeAllCards };

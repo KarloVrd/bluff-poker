@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+Dockerfile.dev
+.dockerignore
+karte_slike
+public/cards_images
+TODO
+hosting_todo.md
+.env

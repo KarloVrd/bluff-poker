@@ -6,23 +6,34 @@
     <title>Mental Poker Prototype v1.1</title>
 </head>
 <body>
+    <div class="corner">
+        <button class="corner__hide">Hide Cards</button>
+        <button class="corner__show">Show Cards</button>
+    </div>
     <div class="hand">
-        <span class="hand__title">Your hand</span>
-        <div class="hand__cards">
-        </div>
-        <button class="hand__hide">Hide hand</button>
-        <button class="hand__show">Show hand</button>
+        <div class="hand__inner"></div>
     </div>
     <div class="actions">
-        <span class="actions__title">Actions</span>
-        <div class="actions__list">
-            <button class="actions__newround">New round</button>
-            <span class="giveCard">Give card to:</span>
-            <div class="actions__playerList">
-            </div>
-            <button class="actions__exit">Exit</button>
+        <button class="actions__hide">▼</button>
+        <div class="actions__upper">
+            <span class="upper__title">Actions</span>
+            
+            <button class="upper__exit">&#10006</button>
         </div>
-    </div>  
+        <div class="actions__lower">
+            <button class="lower__showAll">Show All</button>
+            <button class="lower__newRound">New Round</button>
+            <button class="lower__giveCard">Give Card</button>
+        </div>
+    </div> 
+    <div class="giveCardDialog" style="display: none;">
+        <div class="giveCardDialog__inner">
+            <span class="giveCardDialog__title">Give card to:</span>
+            <div class="giveCardDialog__players">
+            </div>
+            <button class="giveCardDialog__cancel">Cancel</button>
+        </div>
+    </div>
 </body>
 <script src="js/game.js"></script>
 </html>

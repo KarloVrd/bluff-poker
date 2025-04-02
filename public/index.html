@@ -2,21 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/index.css">
     <title>Mental Poker Prototype v1.1</title>
 </head>
 <body>
-    <span class="title">Mental Poker Prototype</span>
-    <div class="gameSelector">
-        <span class="username">Username: 
-            <input type="text" class="username__input" placeholder="Enter your username">
-        </span>
-        <button class="gameSelector__create">Create game</button>
-        <span class="gameSelector__title">Select game</span>
-        <button class="gameSelector__refresh">Refresh</button>
-        <ul class="gameSelector__list">
+    <span class="title">Mental Poker (prototype)</span>
+    <div class="container">
+        <span class="usernameLabel">Username</span>
+        <span class="username">
+            <input type="text" class="username__input">
+        </span>  
+        <div class="selectContainer">
+            <span>Select Game</span>
+            <div class="buttonGroup">
+                <button class="create" data-tooltip="Create new game">&#43;</button> <!-- Plus symbol with tooltip -->
+                <button class="refresh" data-tooltip="Refresh game list">&#x21BB;</button> <!-- Refresh symbol with tooltip -->
+            </div>
+        </div> 
+        <ul class="gamesList">
         </ul>  
     </div>
 </body>
-<script src="js/main.js"></script>
+<script src="js/index.js"></script>
 </html>

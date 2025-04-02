@@ -1,19 +1,22 @@
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const ws = require('ws');
 const path = require('path');
 const cors = require('cors');
-const { error } = require('console');
 const bodyParser = require('body-parser');
 
 const serializeGames = require('./serialization').serializeGames;
+const serializeAllCards = require('./serialization').serializeAllCards
 const sendRefreshPlayersList = require('./socketMessages').sendRefreshPlayersList;
 
-const app = express();
-// const server = http.createServer(app);
-const wsServer = new ws.Server({ port: 5000 });
+const httpPort = process.env.PORT;
+const host = process.env.HOST || 'localhost';
+const url = process.env.URL || `http://${host}:${httpPort}`;
 
-const port = 3000;
+const app = express();
+const server = http.createServer(app);
+const wsServer = new ws.Server({ server });
 
 app.use(cors());
 app.use(bodyParser.json()); 
@@ -46,6 +49,7 @@ let gameIdSequence = 1;
 const games = {};
 
 app.get('/', (req, res) => {
+  console.log('GET /');
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
@@ -85,38 +89,43 @@ function createGame(socket, userName) {
 wsServer.on('connection', (socket) => {
   // print to the console when a new player connects
   console.log('New player connected');
-    // lobbyPlayers.push(socket);
 
-    socket.on('message', (message) => {
-      const data = JSON.parse(message);
+  socket.on('message', (message) => {
+    const data = JSON.parse(message);
 
-      if (data.event === 'createGame') {
-        createGame(socket, data.userName);
-      } else if (data.event === 'joinGame') {
-        joinGame(data.gameId, socket, data.userName);
-      } else if (data.event === 'abandonGame') {
-        abandonGame(data.gameId, socket);
-      } else if (data.event === 'newRound') {
-        newRound(data.gameId);
-      } else if (data.event === 'giveCard') {
-        giveCard(data.gameId, data.playerId);
-      }
-    });
+    if (data.event === 'createGame') {
+      createGame(socket, data.userName);
+    } else if (data.event === 'joinGame') {
+      joinGame(data.gameId, socket, data.userName);
+    } else if (data.event === 'abandonGame') {
+      abandonGame(data.gameId, socket);
+    } else if (data.event === 'newRound') {
+      newRound(data.gameId);
+    } else if (data.event === 'giveCard') {
+      giveCard(data.gameId, data.playerId);
+    } else if (data.event === 'showAll') {
+      showAll(data.gameId);
+    }
+  });
 
-    socket.on('close', () => {
-      console.log('Player disconnected');
-      // find the game that the player is in and remove the player from the game
-      for (const gameId in games) {
-        const game = games[gameId];
-        for (const playerId in game.players) {
-          if (game.players[playerId].webSocket === socket) {
-            delete game.players[playerId];
+  socket.on('close', () => {
+    console.log('Player disconnected');
+    // find the game that the player is in and remove the player from the game
+    for (const gameId in games) {
+      const game = games[gameId];
+      for (const playerId in game.players) {
+        if (game.players[playerId].webSocket === socket) {
+          delete game.players[playerId];
+          if (Object.keys(game.players).length == 0) {
+            delete games[gameId];
+          } else {
             sendRefreshPlayersList(game.players);
-            return;
           }
+          return;
         }
       }
-    });
+    }
+  });
 });
 
 function newRound(gameId) {
@@ -182,6 +191,26 @@ function giveCard(gameId, playerId) {
 
 function abandonGame(gameId, socket) {
   games[gameId].players = games[gameId].players.filter((player) => player.webSocket !== socket);
+
+  if (games[gameId].players.length === 0) {
+    delete games[gameId];
+  } else {
+    sendRefreshPlayersList(games[gameId].players);
+  }
+}
+
+function showAll(gameId) {
+  const playersList = Object.values(games[gameId].players);
+  const allCards = serializeAllCards(playersList);
+
+  let data = {
+    event: 'showAll',
+    players: allCards,
+  };
+
+  playersList.forEach((player) => {
+    player.webSocket.send(JSON.stringify(data));
+  });
 }
 
 // endpoint /games
@@ -212,6 +241,6 @@ app.get('/games', (req, res) => {
 });
 
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+server.listen(httpPort, host, () => {
+  console.log(`Server running at ${url}`);
 });

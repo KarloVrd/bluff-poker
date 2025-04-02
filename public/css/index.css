@@ -1,0 +1,149 @@
+body {
+    background-image: url('../images/oak_planks3.png');
+    background-repeat: repeat;
+    background-size: 75px 75px; /* Adjust the size as needed */
+    image-rendering: pixelated;
+    /* align items horizontally to the center */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #000;
+}
+
+.title {
+    font-size: 3em;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+}
+
+.container {
+    /* brown border with less brown background */
+    border: 4px solid #000;
+    background-color: #f1d4ad;
+    border-radius: 10px; /* Adjust the radius as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.usernameLabel {
+    font-size: 1.5em;
+    text-align: left;
+    color: #000;
+    margin-bottom: 0.3em;
+}
+
+.username {
+    font-size: 1.5em;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+}
+
+input {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    background-color: #fff;
+    border: 4px solid #000;
+    border-radius: 10px; /* Adjust the radius as needed */
+    padding: 0.5em;
+    margin-bottom: 1em;
+    image-rendering: pixelated; /* Ensure the border appears pixelated */
+}
+
+.selectContainer {
+    font-size: 1.5em;
+    margin-bottom: 0.3em;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-align: left;
+}
+
+.selectContainer span {
+    flex-grow: 1;
+}
+
+.buttonGroup {
+    align-self: right;
+    display: flex;
+    gap: 0.3em;
+}
+
+.buttonGroup button {
+    position: relative;
+    background: none;
+    padding: 2;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+    outline: inherit;
+    background-color: #dca763;
+    border: 4px solid #000;
+    border-radius: 10px;
+    font-weight: bold;
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.buttonGroup button::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%; /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    padding: 0.5em;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    font-size: 0.75em;
+}
+
+.buttonGroup button:hover::after {
+    opacity: 1;
+}
+
+.gamesList {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: solid 4px #000;
+    border-radius: 10px;
+    background-color: #dca763;
+}
+
+.gamesList li {
+    padding: 0.5em;
+    margin: 0;
+    border-bottom: solid 4px #000;
+}
+
+.gamesList li:last-child {
+    border-bottom: none; /* Remove bottom border of the last child */
+}
+
+.gamesList li:nth-child(even) {
+    background-color: #f1d4ad; /* Color for odd items */
+}
+
+.gamesList li:nth-child(odd) {
+    background-color: #dca763; /* Color for even items */
+}
+
+
