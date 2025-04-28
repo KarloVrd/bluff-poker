@@ -1,5 +1,5 @@
 const host = location.hostname;
-const port = 3000;
+const port = location.port || 3000;
 const wsUrl = `ws://${host}:${port}`;
 
 const socket = new WebSocket(wsUrl);

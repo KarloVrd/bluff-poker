@@ -1,4 +1,4 @@
-const port = 3000;
+const port = location.port || 3000;
 const host = location.hostname;
 const url = `http://${host}:${port}`;
 
