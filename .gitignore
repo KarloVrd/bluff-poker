@@ -1,2 +1,14 @@
-node_modules
+
+# modules
+node_modules/
+
+# logs
+logs
+*.log
+
+# runtime data
 .env
+
+# TODOs
+hosting_todo.md
+TODO

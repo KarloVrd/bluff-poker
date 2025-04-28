@@ -1,0 +1,9 @@
+User can flip the cards and switch them around
+Only game creator can start new round
+When new round, slide cards to the side and disappear
+
+Implement WebRTC communication between players
+- game 
+
+Strategy for data storage
+Strategy for communication method

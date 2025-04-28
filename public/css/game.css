@@ -1,0 +1,307 @@
+body {
+  background-image: url('../images/oak_planks3.png');
+  background-repeat: repeat;
+  background-size: 75px 75px; /* Adjust the size as needed */
+  image-rendering: pixelated;
+  /* align items horizontally to the center */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: #000;
+  user-select: none;
+}
+
+* {
+  touch-action: manipulation;
+}
+
+.corner {
+  position: absolute;
+  top: 0.2em;
+  left: 0.2em;
+}
+
+.corner button {
+  padding: 5px 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: 2;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: inherit;
+
+  background-color: #f1d4ad;
+  border: 4px solid #000;
+  border-radius: 10px;
+}
+  
+/* Hand Section */
+.hand {
+  position: relative;
+  justify-content: center;
+  flex-grow: 1;
+  display: flex;
+  margin-top: 40px;
+  width: 100%;
+}
+.hand__inner {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.card {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  margin-right: -20px;
+  margin-left: -20px;
+  margin-bottom: -10px;
+}
+
+.card_inner {
+  position: relative;
+  width: 100px;
+  height: 150px;
+  cursor: pointer;
+  border: 4px solid black;
+  background-color: white;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* .text-container {
+  overflow: hidden;
+  display: inline-block;
+} */
+
+.card_corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.5em;
+  width: 30px;
+}
+
+.card_corner > * {
+  text-align: center;
+}
+
+.card_corner :last-child {
+  margin-top: -6px;
+}
+
+/* .text-container span {
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+  display: inline-block;
+} */
+
+.top-left {
+  top: 3px;
+  left: 3px;
+}
+
+.top-right {
+  top: 3px;
+  right: 3px;
+}
+
+.card_middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+  bottom: 3px;
+  left: 3px;
+  transform: rotate(180deg);
+}
+
+.bottom-right {
+  bottom: 3px;
+  right: 3px;
+  transform: rotate(180deg);
+}
+
+/* .shrink span {
+  transform: scaleX(0);
+} */
+
+.back > * {
+  visibility: hidden;
+}
+
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.card-slide-out {
+  animation: slideOutRight 0.5s forwards;
+}
+
+.card-slide-in {
+  animation: slideInLeft 0.5s forwards;
+}
+
+/* Actions Section */
+.actions {
+  position: absolute;
+  bottom: 0.2em;
+  border: solid 4px #000;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #f1d4ad;
+}
+
+.actions__upper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions__hide {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 3em;
+  transform: translateX(-50%);
+  margin: 0 auto;
+  border: solid 4px #000;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  cursor: pointer;
+  background: none;
+  font: inherit;
+  background-color: #dca763;
+}
+
+.upper__exit {
+  padding: 5px 10px;
+  color: red;
+  border: none;
+  cursor: pointer;
+  background: none;
+  font: inherit;
+}
+
+.actions__lower{
+  display: flex;
+  justify-content: space-around;
+  gap: 0.5em;
+}
+
+.actions__lower button {
+  padding: 5px 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: 2;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: inherit;
+
+  background-color: #dca763;
+  border: 4px solid #000;
+  border-radius: 10px;
+  flex: 1;
+  white-space: nowrap;
+}
+
+/* Player List Section */
+.actions__playerList {
+  margin: 10px 0;
+}
+
+.actions__playerList li {
+  margin-bottom: 5px;
+}
+
+/* Give Card Dialog */
+.giveCardDialog {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.giveCardDialog__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1d4ad;
+  border: solid 4px #000;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.giveCardDialog__inner button {
+  border: none;
+  cursor: pointer;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: inherit;
+  padding: 0.2em;
+
+  background-color: #dca763;
+  border: 4px solid #000;
+  border-radius: 10px;
+}
+
+.giveCardDialog__title{
+  font-size: 1.5em;
+  margin-bottom: 0.2em;
+}
+
+.giveCardDialog__players {
+  display: flex;
+  flex-direction: column;
+}
+
+.giveCardDialog__players button{
+  margin-bottom: 0.2em;
+}
+
+.giveCardDialog__cancel {
+  margin-top: 0.5em;
+}

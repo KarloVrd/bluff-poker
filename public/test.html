@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Squishing Text</title>
+<style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.text-container {
+  overflow: hidden; /* Key for containing the scaled text */
+  display: inline-block; /* Important for proper width calculation */
+}
+
+.text {
+  font-size: 48px; /* Adjust as needed */
+  transition: transform 1s ease-in-out; /* Adjust duration and easing */
+  white-space: nowrap; /* Prevents text from wrapping */
+  display: inline-block; /* Important if the text is not already inline */
+}
+
+.text:hover {
+  transform: scaleX(0); /* Squish to zero width on hover */
+}
+
+/* Alternative animation using @keyframes */
+.text.animated {
+    animation: squish 1s ease-in-out infinite alternate;
+}
+
+@keyframes squish {
+  0% { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
+}
+
+</style>
+</head>
+<body>
+
+<div class="text-container">
+  <span class="text">Hello World</span>
+</div>
+
+<div class="text-container">
+    <span class="text animated">Animated Text</span>
+</div>
+
+</body>
+</html>

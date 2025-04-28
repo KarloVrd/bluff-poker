@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Mental Poker Prototype v1.1</title>
+</head>
+<body>
+    <span class="title">Mental Poker (prototype)</span>
+    <div class="container">
+        <span class="usernameLabel">Username</span>
+        <span class="username">
+            <input type="text" class="username__input">
+        </span>  
+        <div class="selectContainer">
+            <span>Select Game</span>
+            <div class="buttonGroup">
+                <button class="create" data-tooltip="Create new game">&#43;</button> <!-- Plus symbol with tooltip -->
+                <button class="refresh" data-tooltip="Refresh game list">&#x21BB;</button> <!-- Refresh symbol with tooltip -->
+            </div>
+        </div> 
+        <ul class="gamesList">
+        </ul>  
+    </div>
+</body>
+<script src="js/index.js"></script>
+</html>
