@@ -1,8 +1,5 @@
-const host = location.hostname;
-const port = location.port || 3000;
-const wsUrl = `ws://${host}:${port}`;
-
-const socket = new WebSocket(wsUrl);
+const origin = location.origin;
+const socket = new WebSocket(origin);
 
 const symbols = ["♣", "♦", "♥", "♠"];
 

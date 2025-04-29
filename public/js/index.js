@@ -1,10 +1,8 @@
-const port = location.port || 3000;
-const host = location.hostname;
-const url = `http://${host}:${port}`;
+const origin = location.origin
 
 const gamesListElement = document.getElementsByClassName('gamesList')[0];
 
-console.log(url);
+console.log(origin);
 function enterGame(gameId, userName) {
     if (userName === '') {
         alert('Please provide a username');
@@ -14,7 +12,7 @@ function enterGame(gameId, userName) {
         alert('Please provide a game ID');
         return;
     }
-    window.location.href = `${url}/game.html?gameId=${gameId}&userName=${userName}`;
+    window.location.href = `${origin}/game.html?gameId=${gameId}&userName=${userName}`;
 }
 
 function refreshGamesList(games) {
@@ -45,7 +43,7 @@ function createGame() {
         return;
     }
     // send a request to the server to create a game
-    fetch(`${url}/games`, {
+    fetch(`${origin}/games`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -60,7 +58,7 @@ function createGame() {
 }
 
 function fetchGames() {
-    fetch(`${url}/games`)
+    fetch(`${origin}/games`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
