@@ -242,5 +242,7 @@ app.get('/games', (req, res) => {
 
 
 server.listen(httpPort, host, () => {
-  console.log(`Server running at ${url}`);
+  console.log(`Host: ${host}`);
+  console.log(`Port: ${httpPort}`);
+  console.log(`Local host: http://localhost:${httpPort}`);
 });

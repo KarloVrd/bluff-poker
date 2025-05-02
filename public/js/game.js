@@ -215,12 +215,13 @@ function showAll(players) {
 document
   .getElementsByClassName("lower__newRound")[0]
   .addEventListener("click", newRound);
-// exit button
-document
-  .getElementsByClassName("upper__exit")[0]
-  .addEventListener("click", () => {
-    window.location.href = "/";
-  });
+  
+// // exit button
+// document
+//   .getElementsByClassName("upper__exit")[0]
+//   .addEventListener("click", () => {
+//     window.location.href = "/";
+//   });
 
 // show cards button
 document
@@ -243,6 +244,72 @@ document
       if (!cards[i].children[0].flipped) {
         flipCard(cards[i].children[0]);
       }
+    }
+  });
+
+// Fullscreen toggle button
+document
+  .getElementsByClassName("corner__fullscreen")[0]
+  .addEventListener("click", () => {
+    const element = document.documentElement;
+    const fullscreenButton = document.getElementsByClassName("corner__fullscreen")[0];
+
+    if (!document.fullscreenElement) {
+      // Enter fullscreen
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        /* Firefox */
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        /* Chrome, Safari and Opera */
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        /* IE/Edge */
+        element.msRequestFullscreen();
+      }
+      fullscreenButton.textContent = "Exit Fullscreen"; // Change button text
+    } else {
+      // Exit fullscreen
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        /* Firefox */
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        /* Chrome, Safari and Opera */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        /* IE/Edge */
+        document.msExitFullscreen();
+      }
+      fullscreenButton.textContent = "Fullscreen"; // Change button text
+    }
+  });
+
+// Listen for fullscreen change to update button text dynamically
+document.addEventListener("fullscreenchange", () => {
+  const fullscreenButton = document.getElementsByClassName("corner__fullscreen")[0];
+  if (document.fullscreenElement) {
+    fullscreenButton.textContent = "Exit Fullscreen";
+  } else {
+    fullscreenButton.textContent = "Fullscreen";
+  }
+});
+
+// Toggle visibility of the actions section
+document
+  .getElementsByClassName("actions__hide")[0]
+  .addEventListener("click", () => {
+    const actionsSection = document.getElementsByClassName("actions")[0];
+    const hideButton = document.getElementsByClassName("actions__hide")[0];
+
+    if (actionsSection.classList.contains("hidden")) {
+      actionsSection.classList.remove("hidden");
+      hideButton.textContent = "▼"; // Change button text to "Hide"
+    } else {
+      actionsSection.classList.add("hidden");
+      hideButton.textContent = "▲"; // Change button text to "Show"
     }
   });
 

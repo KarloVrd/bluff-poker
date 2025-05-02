@@ -2,23 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/game.css">
     <title>Mental Poker Prototype v1.1</title>
 </head>
 <body>
-    <div class="corner">
+    <div class="corner_left corner">
         <button class="corner__hide">Hide Cards</button>
         <button class="corner__show">Show Cards</button>
+    </div>
+    <div class="corner_right corner">
+        <button class="corner__fullscreen">Fullscreen</button>
     </div>
     <div class="hand">
         <div class="hand__inner"></div>
     </div>
+    <button class="actions__hide">▼</button>
     <div class="actions">
-        <button class="actions__hide">▼</button>
         <div class="actions__upper">
             <span class="upper__title">Actions</span>
             
-            <button class="upper__exit">&#10006</button>
+            <!-- <button class="upper__exit">&#10006</button> -->
         </div>
         <div class="actions__lower">
             <button class="lower__showAll">Show All</button>

@@ -1,0 +1,29 @@
+body {
+    background-image: url('../images/oak_planks3.png');
+    background-repeat: repeat;
+    background-size: 75px 75px; /* Adjust the size as needed */
+    image-rendering: pixelated;
+    /* align items horizontally to the center */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #000;
+    user-select: none;
+  }
+  
+  * {
+    touch-action: manipulation;
+  }
+  
+  /* Remove focus outline and tap highlight for all elements */
+  * {
+    outline: none; /* Disable focus outline */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile devices */
+  }
+  
+  button:active {
+    background-color: #c89a5a; /* Slightly darker color for pressed state */
+    transform: scale(0.95); /* Optional: Add a slight "pressed" effect */
+  }

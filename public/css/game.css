@@ -1,26 +1,13 @@
-body {
-  background-image: url('../images/oak_planks3.png');
-  background-repeat: repeat;
-  background-size: 75px 75px; /* Adjust the size as needed */
-  image-rendering: pixelated;
-  /* align items horizontally to the center */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: bold;
-  color: #000;
-  user-select: none;
-}
-
-* {
-  touch-action: manipulation;
-}
-
-.corner {
+.corner_left {
   position: absolute;
   top: 0.2em;
   left: 0.2em;
+}
+
+.corner_right {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
 }
 
 .corner button {
@@ -204,6 +191,26 @@ body {
   background: none;
   font: inherit;
   background-color: #dca763;
+  z-index: 10; /* Ensure it stays above other elements */
+  box-sizing: border-box; /* Include border and padding in the element's size */
+  transition: transform 0.1s ease, background-color 0.1s ease; /* Smooth transitions */
+}
+
+.actions__hide:active {
+  background-color: #c89a5a; /* Slightly darker color */
+  transform: translateX(-50%) scale(0.98); /* Slightly shrink the button */
+}
+
+.actions.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s ease;
+}
+
+.actions {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.3s, opacity 0.3s ease;
 }
 
 .upper__exit {
