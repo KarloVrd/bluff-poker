@@ -293,48 +293,49 @@ document
     const element = document.documentElement;
     const fullscreenButton = document.getElementsByClassName("corner__fullscreen")[0];
 
-    if (!document.fullscreenElement) {
+    // Safari uses webkitFullscreenElement
+    const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+
+    if (!isFullscreen) {
       // Enter fullscreen
       if (element.requestFullscreen) {
         element.requestFullscreen();
-      } else if (element.mozRequestFullScreen) {
-        /* Firefox */
-        element.mozRequestFullScreen();
       } else if (element.webkitRequestFullscreen) {
-        /* Chrome, Safari and Opera */
-        element.webkitRequestFullscreen();
+        element.webkitRequestFullscreen(); // Safari
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
       } else if (element.msRequestFullscreen) {
-        /* IE/Edge */
         element.msRequestFullscreen();
       }
-      fullscreenButton.textContent = "Exit Fullscreen"; // Change button text
+      // Button text will be updated in fullscreenchange event
     } else {
       // Exit fullscreen
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        /* Firefox */
-        document.mozCancelFullScreen();
       } else if (document.webkitExitFullscreen) {
-        /* Chrome, Safari and Opera */
-        document.webkitExitFullscreen();
+        document.webkitExitFullscreen(); // Safari
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
       } else if (document.msExitFullscreen) {
-        /* IE/Edge */
         document.msExitFullscreen();
       }
-      fullscreenButton.textContent = "Fullscreen"; // Change button text
+      // Button text will be updated in fullscreenchange event
     }
   });
 
 // Listen for fullscreen change to update button text dynamically
-document.addEventListener("fullscreenchange", () => {
+document.addEventListener("fullscreenchange", updateFullscreenButtonText);
+document.addEventListener("webkitfullscreenchange", updateFullscreenButtonText); // Safari
+
+function updateFullscreenButtonText() {
   const fullscreenButton = document.getElementsByClassName("corner__fullscreen")[0];
-  if (document.fullscreenElement) {
+  // Safari uses webkitFullscreenElement
+  if (document.fullscreenElement || document.webkitFullscreenElement) {
     fullscreenButton.textContent = "Exit Fullscreen";
   } else {
     fullscreenButton.textContent = "Fullscreen";
   }
-});
+}
 
 // Toggle visibility of the actions section
 document
