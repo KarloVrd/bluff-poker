@@ -13,9 +13,9 @@
 .corner button {
   padding: 5px 10px;
   color: white;
-  border: none;
+  /* border: none; */
   cursor: pointer;
-  background: none;
+  /* background: none; */
   padding: 2;
   font-family: inherit;
   font-size: inherit;
@@ -161,14 +161,32 @@
   animation: slideInLeft 0.5s forwards;
 }
 
+/* Right Tab */
+/* vertically half screen without 50% of the height */
+.right_tab {
+  position: absolute;
+  top: 50%;
+  right: 0.2em;
+  transform: translateY(-50%);
+  gap: 0.5em;
+}
+
+.right_tab__player {
+  background-color: #f1d4ad;
+  border: 4px solid #000;
+  border-radius: 10px;
+  padding: 0.1em;
+  margin: 0.2em;
+}
+
+.current_player_starting {
+  background-color: #dca763;
+}
+
 /* Actions Section */
 .actions {
   position: absolute;
   bottom: 0.2em;
-  border: solid 4px #000;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: #f1d4ad;
 }
 
 .actions__upper{

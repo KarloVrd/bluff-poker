@@ -154,9 +154,16 @@ function flipCard(cardInner) {
 const playersElement = document.getElementsByClassName(
   "giveCardDialog__players"
 )[0];
-function refreshPlayers(players) {
+const rightTab = document.getElementsByClassName("right_tab")[0];
+
+function refreshPlayers(players, currentPlayerStarting) {
+  // clear giveCardDialog
   playersElement.innerHTML = "";
 
+  // clear right tab
+  rightTab.innerHTML = "";
+
+  // populate giveCardDialog
   players.forEach((player) => {
     const button = document.createElement("button");
     button.innerHTML = `${player.userName} (${player.numberOfCards} cards)`;
@@ -174,7 +181,33 @@ function refreshPlayers(players) {
     });
 
     playersElement.appendChild(button);
+
+    // add player to right tab
+    const playerDiv = document.createElement("div");
+    playerDiv.className = "right_tab__player";
+    playerDiv.innerHTML = `${player.userName} (${player.numberOfCards})`;
+    playerDiv.playerId = player.playerId;
+
+    if (player.playerId === currentPlayerStarting) {
+      playerDiv.classList.add("current_player_starting");
+    }
+    rightTab.appendChild(playerDiv);
+
   });
+}
+
+const playersTab = document.getElementsByClassName("right_tab__player");
+function changeCurrentPlayerStarting(playerId) {
+  console.log(playersTab);
+  for (let i = 0; i < playersTab.length; i++) {
+    playersTab[i].classList.remove("current_player_starting");
+  }
+  const currentPlayer = Array.from(playersTab).find(
+    (player) => player.playerId === playerId
+  );
+  if (currentPlayer) {
+    currentPlayer.classList.add("current_player_starting");
+  }
 }
 
 function connectWebSocket() {
@@ -188,7 +221,7 @@ function connectWebSocket() {
     const data = JSON.parse(event.data);
 
     if (data.event === "newRound") {
-      displayCards(data.cards, true);
+      receiveNewRound(data.cards, data.currentPlayerStarting);
     } else if (data.event === "error") {
       alert(data.message);
     } else if (data.event === "refreshPlayers") {
@@ -197,6 +230,12 @@ function connectWebSocket() {
       showAll(data.players);
     }
   });
+}
+
+function receiveNewRound(cards, currentPlayerStarting) {
+  changeCurrentPlayerStarting(currentPlayerStarting);
+  console.log("New round cards: ", cards);
+  displayCards(cards, true);
 }
 
 function showAll(players) {

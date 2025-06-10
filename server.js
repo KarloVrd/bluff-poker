@@ -105,6 +105,8 @@ wsServer.on('connection', (socket) => {
       giveCard(data.gameId, data.playerId);
     } else if (data.event === 'showAll') {
       showAll(data.gameId);
+    } else if (data.event === 'changeOrder'){
+      changeOrder(data.gameId, data.playerId);
     }
   });
 
@@ -129,23 +131,34 @@ wsServer.on('connection', (socket) => {
 });
 
 function newRound(gameId) {
-  const playersList = Object.values(games[gameId].players);
+  const game = games[gameId];
+  const playersDict = Object.values(games[gameId].players);
+
+  // find next id of player starting the round (could be non-sequential)
+  // ids are sorted and the next id is found
+  const playerIds = Object.keys(game.players);
+  playerIds.sort((a, b) => a - b);
+  console.log("PlayerIds", playerIds);
+  const oldPlayerIndex = playerIds.indexOf(game.currentPlayerStarting);
+  const currentPlayerIndex = (oldPlayerIndex + 1) % playerIds.length;
+  game.currentPlayerStarting = playerIds[currentPlayerIndex];
 
   // create a deck of cards and shuffle it
   const deck = Array.from({ length: 52 }, (_, i) => i);
   deck.sort(() => Math.random() - 0.5);
 
-  playersList.forEach((player) => {
+  playersDict.forEach((player) => {
     player.currentCards = [];
 
     // give each player [player.numberOfCards] cards
     for (let i = 0; i < player.numberOfCards; i++) {
       player.currentCards.push(deck.pop());
     }
-
+    console.log("Curr", game.currentPlayerStarting);
     const data = {
       event: 'newRound',
       cards: player.currentCards,
+      currentPlayerStarting: game.currentPlayerStarting,
     };
 
     // send the data to the player
@@ -211,6 +224,18 @@ function showAll(gameId) {
   playersList.forEach((player) => {
     player.webSocket.send(JSON.stringify(data));
   });
+}
+
+function changeOrder(gameId, playerId) {
+  const playersList = Object.values(games[gameId].players);
+  const player = playersList.find((p) => p.playerId === playerId);
+
+  if (player) {
+    player.numberOfCards += 1;
+    sendRefreshPlayersList(games[gameId].players);
+  } else {
+    console.log('Player not found');
+  }
 }
 
 // endpoint /games

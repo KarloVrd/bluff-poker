@@ -27,3 +27,25 @@ body {
     background-color: #c89a5a; /* Slightly darker color for pressed state */
     transform: scale(0.95); /* Optional: Add a slight "pressed" effect */
   }
+
+.light-orange-box {
+    background-color: #f1d4ad;
+    border: solid 4px #000;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.light-orange-box h2 {
+  margin-top: 0;
+}
+
+.light-orange-box ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.light-orange-box li {
+  margin-bottom: 5px;
+}
